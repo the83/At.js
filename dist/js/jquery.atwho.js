@@ -1,4 +1,4 @@
-/*! jquery.atwho - v0.5.0 - 2014-07-14
+/*! jquery.atwho - v0.5.0 - 2014-08-05
 * Copyright (c) 2014 chord.luo <chord.luo@gmail.com>; 
 * homepage: http://ichord.github.com/At.js 
 * Licensed MIT
@@ -745,15 +745,7 @@ DEFAULT_CALLBACKS = {
       return '' + content + new_suffix;
     } else if ($inputor.attr('contentEditable') === 'true') {
       new_suffix = suffix === "" ? suffix : suffix || "&nbsp;";
-      if (/firefox/i.test(navigator.userAgent)) {
-        wrapped_content = "<span>" + content + new_suffix + "</span>";
-      } else {
-        suffix = "<span contenteditable='false'>" + new_suffix + "<span>";
-        wrapped_content = "<span contenteditable='false'>" + content + suffix + "</span>";
-      }
-      if (this.app.document.selection) {
-        wrapped_content = "<span contenteditable='true'>" + content + "</span>";
-      }
+      wrapped_content = "<span contenteditable='false' >" + content + new_suffix + "</span>";
       return wrapped_content;
     }
   }
@@ -786,7 +778,7 @@ $.fn.atwho = function(method) {
   _args = arguments;
   $('body').append($CONTAINER);
   result = null;
-  this.filter('textarea, input, [contenteditable=true]').each(function() {
+  this.filter('textarea, input, [contenteditable=""], [contenteditable=true]').each(function() {
     var $this, app;
     if (!(app = ($this = $(this)).data("atwho"))) {
       $this.data('atwho', (app = new App(this)));
